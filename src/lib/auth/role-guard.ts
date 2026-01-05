@@ -1,5 +1,4 @@
 import { getAuthUser } from "./session";
-import { userService } from "@/services/user.service";
 import { SessionUser, UserRole } from "@/types/auth";
 import { redirect } from "next/navigation";
 import { DEFAULT_REDIRECT } from "@/lib/constants/auth";
@@ -26,6 +25,7 @@ export async function getCurrentUser(): Promise<SessionUser | null> {
       return null;
     }
 
+    const { userService } = await import("@/services/user.service");
     const user = await userService.findByAuthId(authUser.id);
     if (!user) {
       return null;

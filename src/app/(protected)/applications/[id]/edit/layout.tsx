@@ -8,6 +8,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+export const dynamic = "force-dynamic";
+
 interface WizardLayoutProps {
   children: ReactNode;
   params: { id: string };

@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { getDraftApplication } from "@/app/actions/application";
 
+export const dynamic = "force-dynamic";
+
 interface EditPageProps {
   params: { id: string };
 }

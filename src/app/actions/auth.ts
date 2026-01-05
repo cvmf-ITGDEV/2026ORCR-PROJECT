@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { userService } from "@/services/user.service";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { DEFAULT_REDIRECT } from "@/lib/constants/auth";
@@ -32,6 +31,7 @@ export async function signIn(data: SignInData): Promise<AuthResult> {
       };
     }
 
+    const { userService } = await import("@/services/user.service");
     const user = await userService.syncUser(authData.user);
 
     revalidatePath("/", "layout");
@@ -73,6 +73,7 @@ export async function signUp(data: SignUpData): Promise<AuthResult> {
       };
     }
 
+    const { userService } = await import("@/services/user.service");
     const user = await userService.syncUser(authData.user, {
       firstName: data.firstName,
       lastName: data.lastName,
