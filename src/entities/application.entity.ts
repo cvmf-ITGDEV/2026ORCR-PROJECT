@@ -108,6 +108,15 @@ export class Application extends BaseEntity {
   @Column({ type: "jsonb", nullable: true })
   metadata?: Record<string, any>;
 
+  @Column({ name: "current_step", type: "integer", default: 1 })
+  currentStep!: number;
+
+  @Column({ name: "step_data", type: "jsonb", nullable: true })
+  stepData?: Record<string, any>;
+
+  @Column({ name: "last_saved_at", type: "timestamptz", nullable: true })
+  lastSavedAt?: Date;
+
   @ManyToOne(() => User, (user) => user.applications)
   @JoinColumn({ name: "created_by" })
   createdByUser!: User;

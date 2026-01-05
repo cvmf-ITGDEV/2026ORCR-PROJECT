@@ -40,12 +40,12 @@ export default async function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Applications</CardTitle>
-            <CardDescription>View and manage applications</CardDescription>
+            <CardDescription>View and manage loan applications</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-gray-600">
-              Application management coming soon...
-            </p>
+            <Link href="/applications">
+              <Button>View Applications</Button>
+            </Link>
           </CardContent>
         </Card>
 
