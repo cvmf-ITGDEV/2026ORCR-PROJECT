@@ -4,32 +4,44 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL is not defined. Please ensure it's set in your .env file."
-  );
+function getEntities() {
+  if (typeof window !== "undefined" || process.env.NEXT_PHASE === "phase-production-build") {
+    return [];
+  }
+
+  return [
+    require("@/entities/user.entity").User,
+    require("@/entities/application.entity").Application,
+    require("@/entities/loan.entity").Loan,
+    require("@/entities/official-receipt.entity").OfficialReceipt,
+    require("@/entities/collection-receipt.entity").CollectionReceipt,
+    require("@/entities/audit-log.entity").AuditLog,
+    require("@/entities/ref-region.entity").RefRegion,
+    require("@/entities/ref-province.entity").RefProvince,
+    require("@/entities/ref-city.entity").RefCity,
+  ];
 }
 
-const dataSourceConfig = {
-  type: "postgres" as const,
-  url: process.env.DATABASE_URL,
-  synchronize: false,
-  logging: process.env.NODE_ENV === "development",
-  entities: ["src/entities/**/*.ts"],
-  migrations: ["src/migrations/**/*.ts"],
-  subscribers: [],
-  ssl: {
-    rejectUnauthorized: false,
-  },
-  extra: {
-    max: 10,
-    connectionTimeoutMillis: 30000,
-    idleTimeoutMillis: 10000,
-  },
-};
-
 function createDataSource(): DataSource {
-  return new DataSource(dataSourceConfig);
+  const databaseUrl = process.env.DATABASE_URL || "postgres://localhost:5432/stub";
+
+  return new DataSource({
+    type: "postgres" as const,
+    url: databaseUrl,
+    synchronize: false,
+    logging: process.env.NODE_ENV === "development",
+    entities: getEntities(),
+    migrations: [],
+    subscribers: [],
+    ssl: {
+      rejectUnauthorized: false,
+    },
+    extra: {
+      max: 10,
+      connectionTimeoutMillis: 30000,
+      idleTimeoutMillis: 10000,
+    },
+  });
 }
 
 export async function getDataSource(): Promise<DataSource> {
@@ -79,5 +91,3 @@ export async function closeDataSource(): Promise<void> {
     }
   }
 }
-
-export const AppDataSource = createDataSource();
