@@ -1,0 +1,58 @@
+{
+  "extends": ["next/core-web-vitals", "prettier"],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "prisma",
+            "message": "Use TypeORM instead of Prisma as per Technical Governance Framework"
+          },
+          {
+            "name": "@prisma/client",
+            "message": "Use TypeORM instead of Prisma as per Technical Governance Framework"
+          },
+          {
+            "name": "@mui/material",
+            "message": "Use shadcn/ui instead of Material-UI as per Technical Governance Framework"
+          },
+          {
+            "name": "@material-ui/core",
+            "message": "Use shadcn/ui instead of Material-UI as per Technical Governance Framework"
+          },
+          {
+            "name": "@tanstack/react-query",
+            "message": "Use native fetch with Server Actions instead of TanStack Query as per Technical Governance Framework"
+          },
+          {
+            "name": "@tanstack/react-table",
+            "message": "Use shadcn/ui table components instead of TanStack Table as per Technical Governance Framework"
+          }
+        ],
+        "patterns": [
+          {
+            "group": ["prisma*"],
+            "message": "Use TypeORM instead of Prisma as per Technical Governance Framework"
+          },
+          {
+            "group": ["@prisma/*"],
+            "message": "Use TypeORM instead of Prisma as per Technical Governance Framework"
+          },
+          {
+            "group": ["@mui/*"],
+            "message": "Use shadcn/ui instead of Material-UI as per Technical Governance Framework"
+          },
+          {
+            "group": ["@material-ui/*"],
+            "message": "Use shadcn/ui instead of Material-UI as per Technical Governance Framework"
+          },
+          {
+            "group": ["@tanstack/*"],
+            "message": "Use approved alternatives as per Technical Governance Framework"
+          }
+        ]
+      }
+    ]
+  }
+}
