@@ -8,7 +8,7 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is not defined in environment variables");
 }
 
-export const AppDataSource = new DataSource({
+const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.DATABASE_URL,
   synchronize: false,
@@ -19,4 +19,11 @@ export const AppDataSource = new DataSource({
   ssl: {
     rejectUnauthorized: false,
   },
+  extra: {
+    max: 10,
+    connectionTimeoutMillis: 30000,
+    idleTimeoutMillis: 10000,
+  },
 });
+
+export default AppDataSource;
