@@ -10,6 +10,7 @@ type CookieOptions = {
 let boltValue = true;
 export function createClient() {
   if (boltValue) {
+    console.log('LOLA')
     return createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -18,6 +19,7 @@ export function createClient() {
 console.log('HAKDOG')
   const cookieStore = cookies();
 console.log('LOLO')
+  
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
