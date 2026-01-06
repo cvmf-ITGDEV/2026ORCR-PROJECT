@@ -10,13 +10,12 @@ type CookieOptions = {
 let boltValue = true;
 export function createClient() {
   if (boltValue) {
-    console.log('url', process.env.NEXT_PUBLIC_SUPABASE_URL!)
-    console.log('anon', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
-    
-    return createServerClient(
+
+    const res = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
+    return res;
   }
   
 console.log('HAKDOG')
