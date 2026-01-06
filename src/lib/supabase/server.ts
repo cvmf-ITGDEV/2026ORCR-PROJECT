@@ -24,5 +24,6 @@ export function createClient() {
       },
     }
   );
+  console.logo('RES:', res)
   return res;
 }
