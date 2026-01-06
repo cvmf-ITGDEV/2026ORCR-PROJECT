@@ -8,15 +8,19 @@ import { AuthResult, SignInData, SignUpData } from "@/types/auth";
 import { toSessionUser } from "@/lib/utils/user-mapper";
 
 export async function signIn(data: SignInData): Promise<AuthResult> {
+  console.log('HI')
   try {
     const supabase = await createClient();
 
+    console.log('Supabase:', supabase);
     const { data: authData, error: signInError } =
       await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
 
+    console.log('Data:', authData)
+    
     if (signInError) {
       return {
         success: false,

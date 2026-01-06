@@ -29,10 +29,12 @@ export default function LoginPage() {
 
     const result = await signIn({ email, password });
 
+    console.log('RESULT: ', result);
     if (result.success) {
       router.push(redirectTo);
       router.refresh();
     } else {
+      console.log('RESULT error: ', result.error);
       setError(result.error || "An error occurred during sign in");
       setIsLoading(false);
     }
