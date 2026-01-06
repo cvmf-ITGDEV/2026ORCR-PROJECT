@@ -19,7 +19,7 @@ export function createClient() {
     console.log('res:', res)
    }
     else{
-      console.log('ERROR:')
+      console.log('ERROR BWAKANG INA:')
     }
     return res;
   }
