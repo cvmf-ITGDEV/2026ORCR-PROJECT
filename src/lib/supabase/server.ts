@@ -7,6 +7,17 @@ type CookieOptions = {
   options: Record<string, unknown>;
 };
 
+let boltValue = true;
+export function createClient() {
+  if (process.env.BOLT_ENV === "true") {
+    return createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+  }
+
+  const cookieStore = cookies();
+  
 export function createClient() {
   console.log('Hakdog')
   const cookieStore = cookies();
@@ -31,4 +42,5 @@ export function createClient() {
       },
     }
   );
+}
 }
