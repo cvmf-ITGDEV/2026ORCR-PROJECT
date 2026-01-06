@@ -9,7 +9,9 @@ import { toSessionUser } from "@/lib/utils/user-mapper";
 
 export async function signIn(data: SignInData): Promise<AuthResult> {
   try {
+    console.log('Hi')
     const supabase = createClient();
+    console.log('Hello')
 
     const { data: authData, error: signInError } =
       await supabase.auth.signInWithPassword({
