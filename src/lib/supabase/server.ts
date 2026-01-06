@@ -8,8 +8,9 @@ type CookieOptions = {
 };
 
 export function createClient() {
+  console.log('Hakdog')
   const cookieStore = cookies();
-
+console.log('Cookie:', cookieStore)
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
