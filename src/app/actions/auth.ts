@@ -8,18 +8,14 @@ import { AuthResult, SignInData, SignUpData } from "@/types/auth";
 import { toSessionUser } from "@/lib/utils/user-mapper";
 
 export async function signIn(data: SignInData): Promise<AuthResult> {
-  console.log('HI')
   try {
-    const supabase = await createClient();
+    const supabase = createClient();
 
-    console.log('Supabase:', supabase);
     const { data: authData, error: signInError } =
       await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
-
-    console.log('Data:', authData)
     
     if (signInError) {
       return {
@@ -55,7 +51,7 @@ export async function signIn(data: SignInData): Promise<AuthResult> {
 
 export async function signUp(data: SignUpData): Promise<AuthResult> {
   try {
-    const supabase = await createClient();
+    const supabase = createClient();
 
     const { data: authData, error: signUpError } =
       await supabase.auth.signUp({
@@ -98,7 +94,7 @@ export async function signUp(data: SignUpData): Promise<AuthResult> {
 
 export async function signOut(): Promise<void> {
   try {
-    const supabase = await createClient();
+    const supabase = createClient();
     await supabase.auth.signOut();
     revalidatePath("/", "layout");
   } catch (error) {
@@ -110,7 +106,7 @@ export async function signOut(): Promise<void> {
 
 export async function resetPassword(email: string): Promise<AuthResult> {
   try {
-    const supabase = await createClient();
+    const supabase = createClient();
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/reset-password`,

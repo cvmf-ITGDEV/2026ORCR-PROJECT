@@ -4,7 +4,7 @@ import { Session } from "@supabase/supabase-js";
 
 export async function getSession(): Promise<Session | null> {
   try {
-    const supabase = await createClient();
+    const supabase = createClient();
     const {
       data: { session },
     } = await supabase.auth.getSession();
@@ -17,7 +17,7 @@ export async function getSession(): Promise<Session | null> {
 
 export async function getAuthUser(): Promise<AuthUser | null> {
   try {
-    const supabase = await createClient();
+    const supabase = createClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();

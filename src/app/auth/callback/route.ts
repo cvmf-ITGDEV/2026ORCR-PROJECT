@@ -3,27 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic';
 
-async function syncUserAsync(userId: string) {
-  try {
-    const { userService } = await import("@/services/user.service");
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (user) {
-      await userService.syncUser(user);
-    }
-  } catch (error) {
-    console.error("Error syncing user:", error);
-  }
-}
-
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
   const next = requestUrl.searchParams.get("next") || "/dashboard";
 
   if (code) {
-    const supabase = await createClient();
+    const supabase = createClient();
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
@@ -34,9 +20,12 @@ export async function GET(request: NextRequest) {
     }
 
     if (data.user) {
-      syncUserAsync(data.user.id).catch(err => {
-        console.error("Background user sync failed:", err);
-      });
+      try {
+        const { userService } = await import("@/services/user.service");
+        await userService.syncUser(data.user);
+      } catch (syncError) {
+        console.error("Error syncing user:", syncError);
+      }
     }
 
     return NextResponse.redirect(new URL(next, requestUrl.origin));

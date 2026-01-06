@@ -12,19 +12,7 @@ import { User } from "./user.entity";
 import { RefRegion } from "./ref-region.entity";
 import { RefProvince } from "./ref-province.entity";
 import { RefCity } from "./ref-city.entity";
-import { Loan } from "./loan.entity";
-import { OfficialReceipt } from "./official-receipt.entity";
-import { CollectionReceipt } from "./collection-receipt.entity";
-
-export enum ApplicationStatus {
-  DRAFT = "draft",
-  SUBMITTED = "submitted",
-  UNDER_REVIEW = "under_review",
-  APPROVED = "approved",
-  REJECTED = "rejected",
-  DISBURSED = "disbursed",
-  CLOSED = "closed",
-}
+import { ApplicationStatus } from "@/types/application";
 
 @Entity("applications")
 export class Application extends BaseEntity {
@@ -135,12 +123,12 @@ export class Application extends BaseEntity {
   @JoinColumn({ name: "city_id" })
   city?: RefCity;
 
-  @OneToOne(() => Loan, (loan) => loan.application, { nullable: true })
-  loan?: Loan;
+  @OneToOne("Loan", "application", { nullable: true })
+  loan?: any;
 
-  @OneToMany(() => OfficialReceipt, (receipt) => receipt.application)
-  officialReceipts!: OfficialReceipt[];
+  @OneToMany("OfficialReceipt", "application")
+  officialReceipts!: any[];
 
-  @OneToMany(() => CollectionReceipt, (receipt) => receipt.application)
-  collectionReceipts!: CollectionReceipt[];
+  @OneToMany("CollectionReceipt", "application")
+  collectionReceipts!: any[];
 }

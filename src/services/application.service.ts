@@ -1,6 +1,6 @@
 import { getDataSource } from "@/lib/db/data-source";
-import { Application, ApplicationStatus } from "@/entities/application.entity";
-import { ApplicationDTO, Step1Data, Step2Data, Step3Data } from "@/types/application";
+import { Application } from "@/entities/application.entity";
+import { ApplicationDTO, Step1Data, Step2Data, Step3Data, ApplicationStatus } from "@/types/application";
 import { generateApplicationNumber } from "@/lib/utils/application-number";
 import { calculateInterestRate } from "@/types/application";
 

@@ -3,7 +3,7 @@ export { User } from "./user.entity";
 export { RefRegion } from "./ref-region.entity";
 export { RefProvince } from "./ref-province.entity";
 export { RefCity } from "./ref-city.entity";
-export { Application, ApplicationStatus } from "./application.entity";
+export { Application } from "./application.entity";
 export { Loan, LoanStatus } from "./loan.entity";
 export { OfficialReceipt, ReceiptType } from "./official-receipt.entity";
 export {

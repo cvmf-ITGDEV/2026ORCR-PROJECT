@@ -1,4 +1,12 @@
-import { ApplicationStatus } from "@/entities/application.entity";
+export enum ApplicationStatus {
+  DRAFT = "draft",
+  SUBMITTED = "submitted",
+  UNDER_REVIEW = "under_review",
+  APPROVED = "approved",
+  REJECTED = "rejected",
+  DISBURSED = "disbursed",
+  CLOSED = "closed",
+}
 
 export interface ApplicationDTO {
   id: string;

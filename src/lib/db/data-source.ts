@@ -9,17 +9,21 @@ function getEntities() {
     return [];
   }
 
-  return [
-    require("@/entities/user.entity").User,
-    require("@/entities/application.entity").Application,
-    require("@/entities/loan.entity").Loan,
-    require("@/entities/official-receipt.entity").OfficialReceipt,
-    require("@/entities/collection-receipt.entity").CollectionReceipt,
-    require("@/entities/audit-log.entity").AuditLog,
-    require("@/entities/ref-region.entity").RefRegion,
-    require("@/entities/ref-province.entity").RefProvince,
-    require("@/entities/ref-city.entity").RefCity,
-  ];
+  try {
+    return [
+      require("@/entities/user.entity").User,
+      require("@/entities/application.entity").Application,
+      require("@/entities/loan.entity").Loan,
+      require("@/entities/official-receipt.entity").OfficialReceipt,
+      require("@/entities/collection-receipt.entity").CollectionReceipt,
+      require("@/entities/audit-log.entity").AuditLog,
+      require("@/entities/ref-region.entity").RefRegion,
+      require("@/entities/ref-province.entity").RefProvince,
+      require("@/entities/ref-city.entity").RefCity,
+    ];
+  } catch (error) {
+    return [];
+  }
 }
 
 function createDataSource(): DataSource {
@@ -45,6 +49,14 @@ function createDataSource(): DataSource {
 }
 
 export async function getDataSource(): Promise<DataSource> {
+  if (typeof window !== "undefined") {
+    throw new Error("DataSource cannot be used in browser environment");
+  }
+
+  if (process.env.NEXT_PHASE === "phase-production-build") {
+    return createDataSource();
+  }
+
   if (!globalThis.__dataSource) {
     if (!globalThis.__dataSourceInitPromise) {
       globalThis.__dataSourceInitPromise = (async () => {
